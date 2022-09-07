@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppComponent } from '../../app.component';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +9,7 @@ import { AppComponent } from '../../app.component';
 })
 export class HomeComponent implements OnInit
 {
-  constructor(private app: AppComponent, private router: Router)
+  constructor(private userService: UserService, private router: Router)
   {
     this.authenticate();
   }
@@ -23,9 +23,7 @@ export class HomeComponent implements OnInit
    */
   private authenticate()
   {
-    if (this.app.user !== undefined) // TODO: Check if authed remotely. Move the full check to a service method returning a boolean.
-      return;
-
-    this.router.navigate(['login']);
+    if (!this.userService.is_authenticated())
+      this.router.navigate(['login']);
   }
 }
