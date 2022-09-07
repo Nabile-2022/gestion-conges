@@ -8,6 +8,7 @@ public class GestionCongesServerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GestionCongesServerApplication.class, args);
+		System.out.println("test ok");
 	}
 
 }
