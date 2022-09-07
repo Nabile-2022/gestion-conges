@@ -3,9 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeModule } from './home/home.module';
-import { LoginModule } from './login/login.module';
-import { SharedModule } from './shared/shared.module';
+import { HomeModule } from './site/home/home.module';
+import { LoginModule } from './site/login/login.module';
+import { SharedModule } from './site/shared/shared.module';
 
 @NgModule({
   declarations: [
