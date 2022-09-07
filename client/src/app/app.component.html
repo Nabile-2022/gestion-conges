@@ -1,4 +1,4 @@
-<app-nav-menu></app-nav-menu>
+<app-nav-menu *ngIf="userService.onAuthentication | async"></app-nav-menu>
 <div class="container-fluid">
   <router-outlet></router-outlet>
 </div>
