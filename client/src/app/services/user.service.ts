@@ -20,4 +20,17 @@ export class UserService
   get onAuthentication(): Observable<boolean> { return this._onAuthentication.asObservable(); }
 
   is_authenticated(): boolean { return this._user !== undefined; } // TODO: Check if authed remotely.
+
+  /**
+   * Logs a user into the service.
+   * @param role The role to assume.
+   */
+  login(role: string): Observable<boolean>
+  {
+    // TODO :(
+    this._user = role;
+    this._onAuthentication.next(role !== undefined);
+
+    return this.onAuthentication;
+  }
 }

@@ -8,7 +8,7 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent
 {
-  title = 'Gestion des congés';
+  title = document.title;
 
   constructor(public userService: UserService) { }
 }
