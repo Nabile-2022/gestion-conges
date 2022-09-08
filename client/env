@@ -1,0 +1,8 @@
+ng-new-page()
+{
+  local page=$1
+
+  for type in module component; do
+    ng generate $type "site/$page"
+  done
+}
