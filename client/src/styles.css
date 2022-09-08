@@ -1,2 +1,2 @@
 /* You can add global styles to this file, and also import other style files */
-@import "bootstrap";
+@import "../node_modules/bootstrap-dark-5/dist/css/bootstrap-dark.min.css";
