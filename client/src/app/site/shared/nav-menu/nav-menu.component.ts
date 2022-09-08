@@ -12,6 +12,7 @@ export class NavMenuComponent implements OnInit
   routes =
   [
     { path: '', name: 'Accueil' },
+    { path: 'gestion-absences', name: 'Gestion des absences' },
   ];
 
   constructor(private appComponent: AppComponent)

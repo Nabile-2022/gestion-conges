@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent
 {
-  title = 'Gestion des congés';
+  title = document.title;
+
+  constructor(public userService: UserService) { }
 }

@@ -1,0 +1,10 @@
+.login-modal {
+  box-shadow: 0 0 0.5rem 0.1rem gray;
+  position: relative;
+  animation: 0.4s show-login-modal;
+}
+
+@keyframes show-login-modal {
+  0% { top: -100%; opacity: 0%; }
+  100% { top: 0%; opacity: 100%; }
+}
