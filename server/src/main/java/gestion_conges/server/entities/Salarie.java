@@ -25,8 +25,6 @@ public class Salarie
     @Column(unique = true)
     private String email;
 
-    @ManyToMany
-    private Set<Role> roles = new HashSet<>();
     @ManyToOne
     private CompteurAbsences compteurAbsences;
     @ManyToOne
