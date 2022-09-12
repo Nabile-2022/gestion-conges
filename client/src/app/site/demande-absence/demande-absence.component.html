@@ -1,6 +1,6 @@
 <div class="container">
   <h1 class="mb-5 mt-5 text-center">Demande d'une absence</h1>
-  <form class="">
+  <form class="" [formGroup]="form">
     <!-- [formGroup]="form" (ngSubmit)="" -->
 
     <div class="mb-4 row">
@@ -23,7 +23,7 @@
     </div>
     <div class="mb-5 row">
       <label class="form-label offset-2 col-2 text-end" for="motif" rows="5">Motif</label>
-      <textarea class="col-3" formGroupName="motif" rows="6"></textarea>
+      <textarea class="col-3" formGroupName="motif" name="motif" rows="6" placeholder="Saisir un motif"></textarea>
     </div>
     <div class="mb-4 row">
       <button class="btn btn-danger offset-3 col-2" routerLink="..">Annuler</button>
