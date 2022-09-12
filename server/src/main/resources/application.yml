@@ -1,15 +1,15 @@
 
 server:
-  port: 20237
+  port: 21394
   servlet:
     context-path: /api
 
 spring:
   application-name: "Gestion Conges Server"
   datasource:
-    url: jdbc:mysql://udfkuwapm4tehtbp:kofbP5QErRBh6Ne79a7@bdr8adqa2yb0x7txmwiz-mysql.services.clever-cloud.com:20237/bdr8adqa2yb0x7txmwiz
-    username: udfkuwapm4tehtbp
-    password: kofbP5QErRBh6Ne79a7
+    url: jdbc:mysql://u50yotuu1hihajwo:lgfAdcxNwvOkkQZMR4d@bitgmvbedipqkkt0vf1q-mysql.services.clever-cloud.com:21394/bitgmvbedipqkkt0vf1q
+    username: u50yotuu1hihajwo
+    password: lgfAdcxNwvOkkQZMR4d
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
