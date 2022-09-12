@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes =
 [
-  { path: 'demande-absence', component: DemandeAbsenceComponent },
+  { path: 'gestion-absences/demande', component: DemandeAbsenceComponent },
 ];
 
 @NgModule({
