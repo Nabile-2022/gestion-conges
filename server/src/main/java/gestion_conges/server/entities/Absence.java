@@ -1,6 +1,5 @@
 package gestion_conges.server.entities;
 
-import gestion_conges.server.enums.TypeAbsenceEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,5 +27,5 @@ public class Absence
     @ManyToOne
     private TypeAbsence type;
     @ManyToOne
-    private StatutAbsence statutAbsence;
+    private StatutAbsence statut;
 }
