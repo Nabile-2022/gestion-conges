@@ -15,7 +15,7 @@ export class NavMenuComponent implements OnInit
     { path: 'gestion-absences', name: 'Gestion des absences' },
   ];
 
-  constructor(private appComponent: AppComponent)
+  constructor(appComponent: AppComponent)
   {
     this.title = appComponent.title;
   }

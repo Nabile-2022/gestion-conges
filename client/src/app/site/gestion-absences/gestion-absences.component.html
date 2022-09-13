@@ -23,7 +23,7 @@
   </tbody>
 </table>
 <button class="btn btn-primary mb-5">Demander une absence</button>
-<div>
+<div *ngIf="compteur">
   <p>Solde des compteurs</p>
   <ul>
     <li>Congés payés : {{compteur.nombreCongesPayes}}</li>
