@@ -5,25 +5,23 @@
 
     <div class="mb-4 row">
       <label class="form-label offset-2 col-2 text-end" for="startdate">Date de début</label>
-      <input class="col-3" [(ngModel)]="absence.dateDebut" formGroupName="startdate" type="date" />
+      <input class="col-3" [(ngModel)]="absence.dateDebut" [ngModelOptions]="{standalone: true}" name="startdate" type="date" />
     </div>
     <div class="mb-4 row">
       <label class="form-label offset-2 col-2 text-end" for="enddate">Date de fin</label>
-      <input class="col-3" [(ngModel)]="absence.dateFin" formGroupName="enddate" type="date" />
+      <input class="col-3" [(ngModel)]="absence.dateFin" [ngModelOptions]="{standalone: true}" name="enddate" type="date" />
     </div>
     <div class="mb-4 row">
-      <label class="form-label offset-2 col-2 text-end" for="type">Type de congé</label>
+      <label class="form-label offset-2 col-2 text-end" for="role">Type de congé</label>
       <div class=" col-3">
-        <select class="form-select " formGroupName="type" [(ngModel)]="absence.type">
-          <option>Congé payé</option>
-          <option>RTT</option>
-          <option>Congé sans solde</option>
+        <select class="form-select" name="role" [(ngModel)]="absence.type" [ngModelOptions]="{standalone: true}">
+          <option *ngFor="let type of types" [value]="type | lowercase">{{type}}</option>
         </select>
       </div>
     </div>
     <div class="mb-5 row">
       <label class="form-label offset-2 col-2 text-end" for="motif" rows="5">Motif</label>
-      <textarea class="col-3" [(ngModel)]="absence.motif" formGroupName="motif" name="motif" rows="6" placeholder="Saisir un motif"></textarea>
+      <textarea class="col-3" [(ngModel)]="absence.motif" [ngModelOptions]="{standalone: true}" name="motif" rows="6" placeholder="Saisir un motif"></textarea>
     </div>
     <div class="mb-4 row">
       <button class="btn btn-danger offset-3 col-2" routerLink="..">Annuler</button>
