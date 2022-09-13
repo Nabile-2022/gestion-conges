@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { DemandeAbsenceComponent } from './demande-absence.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes =
 [
-  { path: 'gestion-absences/demande', component: DemandeAbsenceComponent, canActivate: [AuthGuard] },
+  { path: 'gestion-absences/demande', component: DemandeAbsenceComponent },
 ];
 
 @NgModule({

@@ -19,14 +19,6 @@ export class DemandeAbsenceComponent implements OnInit
 
   constructor(private formBuilder: FormBuilder)
   {
-    this.form = formBuilder.group(
-      {
-        startdate: "01/01/2022",
-        enddate: "01/01/2022",
-        type: "Congé payé",
-        motif: ""
-      }
-    );
     this.absence =
     {
       dateDebut: new Date(),
@@ -35,6 +27,15 @@ export class DemandeAbsenceComponent implements OnInit
       type: TypeAbsence.CongePaye,
       statut: StatutAbsence.Initiale
     };
+    this.form = formBuilder.group(
+      {
+        dateDebut: this.absence.dateDebut,
+        dateFin: this.absence.dateFin,
+        type: this.absence.type,
+        motif: this.absence.motif
+      }
+    );
+
   }
 
   ngOnInit(): void
