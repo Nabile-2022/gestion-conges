@@ -15,7 +15,7 @@ export class DemandeAbsenceComponent implements OnInit
 {
   form: FormGroup;
   absence!: Absence;
-  typeAbsenceLabelsArray = Array.from(typeAbsenceLabels.values());
+  typeAbsences = Object.keys(TypeAbsence).filter(k => isNaN(Number(k)));
 
   constructor(private formBuilder: FormBuilder)
   {

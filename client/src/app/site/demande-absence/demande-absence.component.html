@@ -14,8 +14,8 @@
     <div class="mb-4 row">
       <label class="form-label offset-2 col-2 text-end" for="type">Type de congé</label>
       <div class=" col-3">
-        <select class="form-select" formControlName="type" >
-          <option *ngFor="let type of typeAbsenceLabelsArray" [value]="type">{{type}}</option>
+        <select class="form-select" formControlName="type">
+          <option *ngFor="let type of typeAbsences" [value]="type">{{type}}</option>
         </select>
       </div>
     </div>
