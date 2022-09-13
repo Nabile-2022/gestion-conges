@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Role } from '../models/role';
+import { Salarie } from '../models/salarie';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService
 {
-  private _user: unknown = undefined; // TODO: Type.
+  private _user?: Salarie;
   private _onAuthentication = new BehaviorSubject(false);
 
   constructor() { }
@@ -25,11 +27,25 @@ export class UserService
    * Logs a user into the service.
    * @param role The role to assume.
    */
-  login(role: string): Observable<boolean>
+  login(role: Role): Observable<boolean>
   {
     // TODO :(
-    this._user = role;
-    this._onAuthentication.next(role !== undefined);
+    this._user =
+    {
+      nom: 'Nom',
+      prenom: 'Prénom',
+      email: 'e@mail.org',
+      role: role
+    };
+    this._onAuthentication.next(this._user !== undefined);
+
+    return this.onAuthentication;
+  }
+
+  logout(): Observable<boolean>
+  {
+    this._user = undefined;
+    this._onAuthentication.next(this._user !== undefined);
 
     return this.onAuthentication;
   }
