@@ -1,21 +1,21 @@
 <div class="container">
   <h1 class="mb-5 mt-5 text-center">Demande d'une absence</h1>
-  <form class="" [formGroup]="form">
-    <!-- [formGroup]="form" (ngSubmit)="" -->
+  <form class="" [formGroup]="form" >
+    <!-- (ngSubmit)="" -->
 
     <div class="mb-4 row">
-      <label class="form-label offset-2 col-2 text-end" for="start-date">Date de début</label>
-      <input class="col-3" formGroupName="start-date" type="date" />
+      <label class="form-label offset-2 col-2 text-end" for="startdate">Date de début</label>
+      <input class="col-3" [(ngModel)]="absence.dateDebut" formGroupName="startdate" type="date" />
     </div>
     <div class="mb-4 row">
-      <label class="form-label offset-2 col-2 text-end" for="end-date">Date de fin</label>
-      <input class="col-3" formGroupName="end-date" type="date" />
+      <label class="form-label offset-2 col-2 text-end" for="enddate">Date de fin</label>
+      <input class="col-3" [(ngModel)]="absence.dateFin" formGroupName="enddate" type="date" />
     </div>
     <div class="mb-4 row">
       <label class="form-label offset-2 col-2 text-end" for="type">Type de congé</label>
       <div class=" col-3">
-        <select class="form-select " formGroupName="type">
-          <option>Congé Payé</option>
+        <select class="form-select " formGroupName="type" [(ngModel)]="absence.type">
+          <option>Congé payé</option>
           <option>RTT</option>
           <option>Congé sans solde</option>
         </select>
@@ -23,7 +23,7 @@
     </div>
     <div class="mb-5 row">
       <label class="form-label offset-2 col-2 text-end" for="motif" rows="5">Motif</label>
-      <textarea class="col-3" formGroupName="motif" name="motif" rows="6" placeholder="Saisir un motif"></textarea>
+      <textarea class="col-3" [(ngModel)]="absence.motif" formGroupName="motif" name="motif" rows="6" placeholder="Saisir un motif"></textarea>
     </div>
     <div class="mb-4 row">
       <button class="btn btn-danger offset-3 col-2" routerLink="..">Annuler</button>
