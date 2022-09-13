@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Absence } from 'src/app/models/absence';
-import { Role } from 'src/app/models/role';
 import { StatutAbsence } from 'src/app/models/statut-absence';
 import { TypeAbsence } from 'src/app/models/type-absence';
+import { typeAbsenceLabels } from 'src/app/localisation/french';
 
 @Component({
   selector: 'app-demande-absence',
@@ -15,7 +15,8 @@ export class DemandeAbsenceComponent implements OnInit
 {
   form: FormGroup;
   absence!: Absence;
-  types = Object.keys(TypeAbsence).filter(k => isNaN(Number(k)));
+  //types = Object.keys(TypeAbsence).filter(k => isNaN(Number(k)));
+  typeAbsenceLabelsArray = Array.from(typeAbsenceLabels.values());
 
   constructor(private formBuilder: FormBuilder)
   {
