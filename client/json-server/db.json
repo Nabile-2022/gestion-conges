@@ -1,0 +1,38 @@
+{
+  "absences": [
+    {
+      "id": 1,
+      "dateDebut": "2022-09-12T15:29:33.127Z",
+      "dateFin": "2022-09-13T15:29:33.127Z",
+      "motif": "Quel motif ?",
+      "type": "CongeNonPaye",
+      "statut": "Initiale"
+    },
+    {
+      "id": 2,
+      "dateDebut": "2022-09-12T15:29:33.127Z",
+      "dateFin": "2022-09-13T15:29:33.127Z",
+      "type": "RTT",
+      "statut": "EnAttente"
+    },
+    {
+      "id": 3,
+      "dateDebut": "2022-09-12T15:29:33.127Z",
+      "dateFin": "2022-09-13T15:29:33.127Z",
+      "type": "CongePaye",
+      "statut": "Validee"
+    },
+    {
+      "id": 4,
+      "dateDebut": "2022-09-12T15:29:33.127Z",
+      "dateFin": "2022-09-13T15:29:33.127Z",
+      "motif": "Quel motif ?",
+      "type": "CongeNonPaye",
+      "statut": "Rejetee"
+    }
+  ],
+  "absences.compteur": {
+    "nombreRTT": 3,
+    "nombreCongesPayes": 15
+  }
+}

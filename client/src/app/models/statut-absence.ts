@@ -1,7 +1,7 @@
 export enum StatutAbsence
 {
-  Initiale,
-  EnAttenteValiation,
-  Validee,
-  Rejetee
+  Initiale = 'Initiale',
+  EnAttente = 'EnAttente',
+  Validee = 'Validee',
+  Rejetee = 'Rejetee'
 }

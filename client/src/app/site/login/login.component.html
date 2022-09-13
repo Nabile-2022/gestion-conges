@@ -9,8 +9,8 @@
         <div class="modal-body">
           <div class="mb-3">
             <label class="form-label" for="role">Rôle</label>
-            <select class="form-select" formGroupName="role">
-              <option *ngFor="let role of roles" [value]="role | lowercase">{{role}}</option>
+            <select class="form-select" formControlName="role">
+              <option *ngFor="let role of roles" [value]="role">{{role}}</option>
             </select>
           </div>
         </div>

@@ -10,19 +10,15 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>31/07/2017</td>
-      <td>18/08/2017</td>
-      <td>Congés payés</td>
-      <td>Validee</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>31/07/2017</td>
-      <td>18/08/2017</td>
-      <td>Congés payés</td>
-      <td>Validee</td>
-      <td></td>
+    <tr *ngFor="let absence of absences">
+      <td>{{absence.dateDebut.toLocaleDateString()}}</td>
+      <td>{{absence.dateFin.toLocaleDateString()}}</td>
+      <td>{{typeAbsenceLabels.get(absence.type)}}</td>
+      <td>{{statutAbsenceLabels.get(absence.statut)}}</td>
+      <td>
+        <button *ngIf="isEditable(absence)" class="btn btn-warning mx-1">✏️</button>
+        <button class="btn btn-danger mx-1">🗑️</button>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -30,7 +26,7 @@
 <div>
   <p>Solde des compteurs</p>
   <ul>
-    <li>Congés payés : 15</li>
-    <li>RTT : 3</li>
+    <li>Congés payés : {{compteur.nombreCongesPayes}}</li>
+    <li>RTT : {{compteur.nombreRTT}}</li>
   </ul>
 </div>
