@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginComponent implements OnInit
 {
   form: FormGroup;
-  roles = Object.keys(Role).filter(k => isNaN(Number(k)));
+  roles = Object.values(Role).filter(k => isNaN(Number(k)));
 
   constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router)
   {
