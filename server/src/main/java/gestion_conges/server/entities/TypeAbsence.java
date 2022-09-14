@@ -1,5 +1,6 @@
 package gestion_conges.server.entities;
 
+import gestion_conges.server.enums.TypeAbsenceEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,5 +19,6 @@ public class TypeAbsence
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(nullable = false, unique = true)
-    private String libelle;
+    @Enumerated(EnumType.STRING)
+    private TypeAbsenceEnum libelle;
 }

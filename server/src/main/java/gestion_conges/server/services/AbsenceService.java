@@ -3,7 +3,7 @@ package gestion_conges.server.services;
 import gestion_conges.server.entities.Absence;
 import gestion_conges.server.entities.Salarie;
 
-import java.util.List;
+import java.util.stream.Stream;
 
 public interface AbsenceService {
 
@@ -11,5 +11,5 @@ public interface AbsenceService {
     public void deleteAbsence(int id);
     public Absence readAbsence(int id);
     public Absence updateAbsence( Absence absence, int id);
-    public List<Absence> listerAbsence();
+    public Stream<Absence> listAbsences(Salarie salarie);
 }

@@ -29,6 +29,6 @@ public class Salarie
     private CompteurAbsences compteurAbsences;
     @ManyToOne
     private Departement departement;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Absence> absences = new HashSet<>();
 }
