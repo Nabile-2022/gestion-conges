@@ -15,7 +15,7 @@
       <label class="form-label offset-2 col-2 text-end" for="type">Type de congé</label>
       <div class=" col-3">
         <select class="form-select" formControlName="type">
-          <option *ngFor="let type of typeAbsences" [value]="type">{{type}}</option>
+          <option *ngFor="let type of typeAbsences" [value]="type">{{typeAbsenceLabels.get(type)}}</option>
         </select>
       </div>
     </div>
