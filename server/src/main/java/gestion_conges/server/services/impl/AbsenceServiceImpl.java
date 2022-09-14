@@ -2,34 +2,51 @@ package gestion_conges.server.services.impl;
 
 import gestion_conges.server.entities.Absence;
 import gestion_conges.server.entities.Salarie;
+import gestion_conges.server.repositories.AbsenceRepository;
 import gestion_conges.server.services.AbsenceService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.stream.Stream;
 
-public class AbsenceServiceImpl implements AbsenceService {
+@Service
+@Transactional // This ensures everything gets persisted to the DB.
+public class AbsenceServiceImpl implements AbsenceService
+{
+    private AbsenceRepository absenceRepository;
+
+    public AbsenceServiceImpl(AbsenceRepository absenceRepository)
+    {
+        this.absenceRepository = absenceRepository;
+    }
 
     @Override
-    public void addAbsence(Salarie salarie) {
+    public void addAbsence(Salarie salarie)
+    {
 
     }
 
     @Override
-    public void deleteAbsence(int id) {
+    public void deleteAbsence(int id)
+    {
 
     }
 
     @Override
-    public Absence readAbsence(int id) {
+    public Absence readAbsence(int id)
+    {
         return null;
     }
 
     @Override
-    public Absence updateAbsence(Absence absence, int id) {
+    public Absence updateAbsence(Absence absence, int id)
+    {
         return null;
     }
 
     @Override
-    public List<Absence> listerAbsence() {
-        return null;
+    public Stream<Absence> listAbsences(Salarie salarie)
+    {
+        return salarie.getAbsences().stream();
     }
 }
