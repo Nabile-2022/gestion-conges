@@ -156,6 +156,38 @@
       "type": "CongePaye",
       "statut": "Initiale",
       "id": 20
+    },
+    {
+      "dateDebut": "2022-09-21",
+      "dateFin": "2022-09-23",
+      "motif": "",
+      "type": "CongeNonPaye",
+      "statut": "Initiale",
+      "id": 21
+    },
+    {
+      "dateDebut": "2022-09-27",
+      "dateFin": "2022-09-29",
+      "motif": "",
+      "type": "RTT",
+      "statut": "Initiale",
+      "id": 22
+    },
+    {
+      "dateDebut": "2022-09-06",
+      "dateFin": "2022-09-22",
+      "motif": "",
+      "type": "CongePaye",
+      "statut": "Initiale",
+      "id": 23
+    },
+    {
+      "dateDebut": "2022-08-30",
+      "dateFin": "2022-09-23",
+      "motif": "",
+      "type": "CongePaye",
+      "statut": "Initiale",
+      "id": 24
     }
   ],
   "absences.compteur": {
