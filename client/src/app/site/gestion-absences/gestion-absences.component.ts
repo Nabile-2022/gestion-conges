@@ -27,4 +27,14 @@ export class GestionAbsencesComponent implements OnInit
   }
 
   isEditable(absence: Absence) { return [StatutAbsence.Initiale, StatutAbsence.Rejetee].includes(absence.statut); }
+
+  edit(absence: Absence)
+  {
+    // TODO: Open an in-page modal.
+  }
+
+  delete(absence: Absence)
+  {
+    this.absenceService.delete(absence).subscribe(() => this.absences.splice(this.absences.indexOf(absence), 1));
+  }
 }

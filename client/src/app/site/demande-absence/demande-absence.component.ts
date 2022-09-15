@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Absence } from 'src/app/models/absence';
 import { StatutAbsence } from 'src/app/models/statut-absence';
 import { TypeAbsence } from 'src/app/models/type-absence';
 import { typeAbsenceLabels } from 'src/app/localisation/french';
+import { AbsenceService } from 'src/app/services/absence.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormValidators } from '../shared/form-validators';
 
 @Component({
   selector: 'app-demande-absence',
@@ -13,33 +16,46 @@ import { typeAbsenceLabels } from 'src/app/localisation/french';
 
 export class DemandeAbsenceComponent implements OnInit
 {
-  form: FormGroup;
+  form!: FormGroup;
   absence!: Absence;
+
   typeAbsences = Object.values(TypeAbsence).filter(k => isNaN(Number(k)));
   typeAbsenceLabels = typeAbsenceLabels;
 
-  constructor(private formBuilder: FormBuilder)
+  constructor(private formBuilder: FormBuilder, private absenceService: AbsenceService, private router: Router, private route: ActivatedRoute)
   {
     this.absence =
     {
+      id: 0,
       dateDebut: new Date(),
       dateFin: new Date(),
       motif: '',
       type: TypeAbsence.CongePaye,
       statut: StatutAbsence.Initiale
     };
-    this.form = formBuilder.group(
-      {
-        dateDebut: this.absence.dateDebut,
-        dateFin: this.absence.dateFin,
-        type: this.absence.type,
-        motif: this.absence.motif
-      }
-    );
-
   }
 
   ngOnInit(): void
   {
+    this.form = this.formBuilder.group(
+      {
+        dateDebut: [this.absence.dateDebut, { validators: [FormValidators.pastDate(this.absence.dateDebut)] }],
+        dateFin: [this.absence.dateFin, { validators: [FormValidators.pastDate(this.absence.dateFin)] }],
+        type: this.absence.type,
+        motif: [this.absence.motif, { validators: [FormValidators.nonEmptyText(this.absence)] }]
+      }
+    );
+  }
+
+  addAbsence(): void
+  {
+    this.form.controls['motif'].updateValueAndValidity();
+
+    const datesValid = this.absence.dateFin > this.absence.dateDebut;
+
+    if (this.form.valid && datesValid)
+    {
+      this.absenceService.addAbsence(this.absence).subscribe(a => this.router.navigate(['..'], { relativeTo: this.route }));
+    }
   }
 }

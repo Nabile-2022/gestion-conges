@@ -16,8 +16,8 @@
       <td>{{typeAbsenceLabels.get(absence.type)}}</td>
       <td>{{statutAbsenceLabels.get(absence.statut)}}</td>
       <td class="d-flex justify-content-end">
-        <button *ngIf="isEditable(absence)" class="btn btn-warning mx-1">✏️</button>
-        <button class="btn btn-danger mx-1">🗑️</button>
+        <button *ngIf="isEditable(absence)" class="btn btn-warning mx-1" (click)="edit(absence)">✏️</button>
+        <button class="btn btn-danger mx-1" (click)="delete(absence)">🗑️</button>
       </td>
     </tr>
   </tbody>

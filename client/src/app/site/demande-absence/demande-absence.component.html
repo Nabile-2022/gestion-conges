@@ -1,31 +1,29 @@
 <div class="container">
   <h1 class="mb-5 mt-5 text-center">Demande d'une absence</h1>
-  <form class="" [formGroup]="form" >
-    <!-- (ngSubmit)="" -->
-
+  <form (ngSubmit)="addAbsence()" [formGroup]="form">
     <div class="mb-4 row">
       <label class="form-label offset-2 col-2 text-end" for="dateDebut">Date de début</label>
-      <input class="col-3" formControlName="dateDebut" type="date" />
+      <input class="col-3" formControlName="dateDebut" type="date" [(ngModel)]="absence.dateDebut">
     </div>
     <div class="mb-4 row">
       <label class="form-label offset-2 col-2 text-end" for="dateFin">Date de fin</label>
-      <input class="col-3" formControlName="dateFin" type="date" />
+      <input class="col-3" formControlName="dateFin" type="date" [(ngModel)]="absence.dateFin">
     </div>
     <div class="mb-4 row">
       <label class="form-label offset-2 col-2 text-end" for="type">Type de congé</label>
       <div class=" col-3">
-        <select class="form-select" formControlName="type">
+        <select class="form-select" formControlName="type" [(ngModel)]="absence.type">
           <option *ngFor="let type of typeAbsences" [value]="type">{{typeAbsenceLabels.get(type)}}</option>
         </select>
       </div>
     </div>
     <div class="mb-5 row">
       <label class="form-label offset-2 col-2 text-end" for="motif" rows="5">Motif</label>
-      <textarea class="col-3" formControlName="motif" rows="6" placeholder="Saisir un motif"></textarea>
+      <textarea class="col-3" formControlName="motif" rows="6" placeholder="Saisir un motif" [(ngModel)]="absence.motif"></textarea>
     </div>
     <div class="mb-4 row">
       <button class="btn btn-danger offset-3 col-2" routerLink="..">Annuler</button>
-      <button class="btn btn-success offset-1 col-2" type="submit" routerLink="..">Valider</button>
+      <button class="btn btn-success offset-1 col-2" type="submit">Valider</button>
     </div>
   </form>
 </div>

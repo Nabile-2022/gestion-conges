@@ -25,8 +25,18 @@ export class AbsenceService
     return this.http.get(ENDPOINT, { responseType: 'text' }).pipe(map(response => JSON.parse(response, this.reviveDates)));
   }
 
+  delete(absence: Absence): Observable<any>
+  {
+    return this.http.delete(`${ENDPOINT}/${absence.id}`);
+  }
+
   getCompteur(): Observable<CompteurAbsences>
   {
     return this.http.get<CompteurAbsences>(ENDPOINT_COMPTEUR);
+  }
+
+  addAbsence(absence : Absence): Observable<Absence>
+  {
+    return this.http.post<Absence>(ENDPOINT, absence);
   }
 }
