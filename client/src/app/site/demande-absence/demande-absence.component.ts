@@ -26,6 +26,7 @@ export class DemandeAbsenceComponent implements OnInit
   {
     this.absence =
     {
+      id: 0,
       dateDebut: new Date(),
       dateFin: new Date(),
       motif: '',
@@ -40,24 +41,19 @@ export class DemandeAbsenceComponent implements OnInit
       {
         dateDebut: [this.absence.dateDebut, { validators: [FormValidators.pastDate(this.absence.dateDebut)] }],
         dateFin: [this.absence.dateFin, { validators: [FormValidators.pastDate(this.absence.dateFin)] }],
-
         type: this.absence.type,
-        motif: this.absence.motif
+        motif: [this.absence.motif, { validators: [FormValidators.nonEmptyText(this.absence)] }]
       }
     );
   }
 
   addAbsence(): void
   {
-    this.absence.dateDebut = this.form.controls['dateDebut'].value;
-    this.absence.dateFin = this.form.controls['dateFin'].value;
-    this.absence.motif = this.form.controls['motif'].value;
-    this.absence.type = this.form.controls['type'].value;
+    this.form.controls['motif'].updateValueAndValidity();
 
-    let isOk = this.absence.dateFin > this.absence.dateDebut;
-    isOk = isOk && (this.absence.type == TypeAbsence.CongeNonPaye && this.absence.motif !== null && this.absence.motif.trim().length > 0);
+    const datesValid = this.absence.dateFin > this.absence.dateDebut;
 
-    if (isOk)
+    if (this.form.valid && datesValid)
     {
       this.absenceService.addAbsence(this.absence).subscribe(a => this.router.navigate(['..'], { relativeTo: this.route }));
     }
