@@ -29,4 +29,9 @@ export class AbsenceService
   {
     return this.http.get<CompteurAbsences>(ENDPOINT_COMPTEUR);
   }
+
+  addAbsence(absence : Absence): Observable<Absence>
+  {
+    return this.http.post<Absence>(ENDPOINT, absence);
+  }
 }
