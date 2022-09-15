@@ -22,7 +22,7 @@ export class DemandeAbsenceComponent implements OnInit
   typeAbsences = Object.values(TypeAbsence).filter(k => isNaN(Number(k)));
   typeAbsenceLabels = typeAbsenceLabels;
 
-  constructor(private formBuilder: FormBuilder, private absenceService: AbsenceService, private router : Router, private route: ActivatedRoute)
+  constructor(private formBuilder: FormBuilder, private absenceService: AbsenceService, private router: Router, private route: ActivatedRoute)
   {
     this.absence =
     {
@@ -32,15 +32,10 @@ export class DemandeAbsenceComponent implements OnInit
       type: TypeAbsence.CongePaye,
       statut: StatutAbsence.Initiale
     };
-
-
   }
 
   ngOnInit(): void
   {
-
-
-
     this.form = this.formBuilder.group(
       {
         dateDebut: [this.absence.dateDebut, { validators: [FormValidators.pastDate(this.absence.dateDebut)] }],
@@ -52,21 +47,19 @@ export class DemandeAbsenceComponent implements OnInit
     );
   }
 
-  // TODO use validators for the inputs?
-
-  addAbsence(): void {
-    const nowDate = new Date();
+  addAbsence(): void
+  {
     this.absence.dateDebut = this.form.controls['dateDebut'].value;
     this.absence.dateFin = this.form.controls['dateFin'].value;
     this.absence.motif = this.form.controls['motif'].value;
     this.absence.type = this.form.controls['type'].value;
 
-
     let isOk = this.absence.dateFin > this.absence.dateDebut;
+    isOk = isOk && (this.absence.type == TypeAbsence.CongeNonPaye && this.absence.motif !== null && this.absence.motif.trim().length > 0);
 
-    if(isOk) {
-      this.absenceService.addAbsence(this.absence).subscribe(a => this.router.navigate(['..'], {relativeTo: this.route}));
+    if (isOk)
+    {
+      this.absenceService.addAbsence(this.absence).subscribe(a => this.router.navigate(['..'], { relativeTo: this.route }));
     }
-
   }
 }
