@@ -5,6 +5,7 @@ import { StatutAbsence } from 'src/app/models/statut-absence';
 import { TypeAbsence } from 'src/app/models/type-absence';
 import { typeAbsenceLabels } from 'src/app/localisation/french';
 import { AbsenceService } from 'src/app/services/absence.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-demande-absence',
@@ -19,7 +20,7 @@ export class DemandeAbsenceComponent implements OnInit
   typeAbsences = Object.values(TypeAbsence).filter(k => isNaN(Number(k)));
   typeAbsenceLabels = typeAbsenceLabels;
 
-  constructor(private formBuilder: FormBuilder, private absenceService: AbsenceService)
+  constructor(private formBuilder: FormBuilder, private absenceService: AbsenceService, private router : Router, private route: ActivatedRoute)
   {
     this.absence =
     {
@@ -44,19 +45,23 @@ export class DemandeAbsenceComponent implements OnInit
   {
   }
 
+  // TODO use validators for the inputs?
+
   addAbsence(): void {
-    this.absence.dateDebut = this.form.get('dateDebut')?.value;
-    this.absence.dateFin = this.form.get('dateFin')?.value;
-    this.absence.motif = this.form.get('motif')?.value;
-    this.absence.type = this.form.get('type')?.value;
-/*
-    console.log("absence : ");
-    console.log('date debut : ' + this.absence.dateDebut);
-    console.log('date fin : ' + this.absence.dateFin);
-    console.log('motif : ' + this.absence.motif);
-    console.log('statut : ' + this.absence.statut);
-    console.log('type : ' + this.absence.type);
-*/
-    this.absenceService.addAbsence(this.absence).subscribe(a => this.absence = a); // TODO modify to manage the request's return
+    this.absence.dateDebut = this.form.controls['dateDebut'].value;
+    this.absence.dateFin = this.form.controls['dateFin'].value;
+    this.absence.motif = this.form.controls['motif'].value;
+    this.absence.type = this.form.controls['type'].value;
+
+    const nowDate = new Date();
+    let isOk = this.absence.dateFin > this.absence.dateDebut;
+    isOk = isOk && (new Date(this.absence.dateDebut) >= nowDate);
+    isOk = isOk && (new Date(this.absence.dateFin) > nowDate);
+    // TODO ajouter d'autres tests
+
+    if(isOk) {
+      this.absenceService.addAbsence(this.absence).subscribe(a => this.router.navigate(['..'], {relativeTo: this.route}));
+    }
+
   }
 }

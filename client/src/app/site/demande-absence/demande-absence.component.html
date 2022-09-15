@@ -1,8 +1,6 @@
 <div class="container">
   <h1 class="mb-5 mt-5 text-center">Demande d'une absence</h1>
-  <form class="" [formGroup]="form" (ngSubmit)="addAbsence()">
-    <!-- (ngSubmit)="addAbsence()" -->
-
+  <form class="" [formGroup]="form">
     <div class="mb-4 row">
       <label class="form-label offset-2 col-2 text-end" for="dateDebut">Date de début</label>
       <input class="col-3" formControlName="dateDebut" type="date" />
@@ -25,7 +23,7 @@
     </div>
     <div class="mb-4 row">
       <button class="btn btn-danger offset-3 col-2" routerLink="..">Annuler</button>
-      <button class="btn btn-success offset-1 col-2" type="submit" (click)="addAbsence()" routerLink="..">Valider</button>
+      <button class="btn btn-success offset-1 col-2" type="submit" (click)="addAbsence()">Valider</button>
     </div>
   </form>
 </div>
