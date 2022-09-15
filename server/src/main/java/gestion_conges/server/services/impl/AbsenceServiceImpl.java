@@ -4,6 +4,7 @@ import gestion_conges.server.entities.Absence;
 import gestion_conges.server.entities.Salarie;
 import gestion_conges.server.repositories.AbsenceRepository;
 import gestion_conges.server.services.AbsenceService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,14 +12,10 @@ import java.util.stream.Stream;
 
 @Service
 @Transactional // This ensures everything gets persisted to the DB.
+@AllArgsConstructor
 public class AbsenceServiceImpl implements AbsenceService
 {
     private AbsenceRepository absenceRepository;
-
-    public AbsenceServiceImpl(AbsenceRepository absenceRepository)
-    {
-        this.absenceRepository = absenceRepository;
-    }
 
     @Override
     public void addAbsence(Salarie salarie)
