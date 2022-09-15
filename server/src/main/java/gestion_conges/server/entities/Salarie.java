@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -11,10 +12,8 @@ import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter @Setter @Accessors(chain = true)
+@NoArgsConstructor @AllArgsConstructor
 public class Salarie
 {
     @Id
@@ -29,6 +28,6 @@ public class Salarie
     private CompteurAbsences compteurAbsences;
     @ManyToOne
     private Departement departement;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Absence> absences = new HashSet<>();
 }
