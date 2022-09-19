@@ -6,11 +6,15 @@ import gestion_conges.server.enums.TypeAbsenceEnum;
 import gestion_conges.server.enums.TypeJourFerieEnum;
 import gestion_conges.server.repositories.*;
 import lombok.AllArgsConstructor;
+import org.apache.commons.io.FileUtils;
+import org.aspectj.util.FileUtil;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Set;
@@ -28,6 +32,7 @@ public class InitialisationService
     private StatutAbsenceRepository statutAbsenceRepository;
     private TypeJourFerieRepository typeJourFerieRepository;
     private DepartementRepository departementRepository;
+    private JourFerieRepository jourFerieRepository;
 
     private void populateUsers()
     {
@@ -83,9 +88,34 @@ public class InitialisationService
 
     @EventListener(ContextRefreshedEvent.class)
     @Transactional
-    public void populateDatabase()
+    public void populateDatabase() throws IOException
     {
         populateEnums();
         populateUsers();
+        populateClosedDays();
+    }
+
+    private void populateClosedDays() throws IOException
+    {
+        // Source: https://www.data.gouv.fr/fr/datasets/jours-feries-en-france/#resources
+        var file = new File(ClassLoader.getSystemClassLoader().getResource("jours_feries_metropole.csv").getFile());
+        var type = typeJourFerieRepository.findByLibelle(TypeJourFerieEnum.Ferie).get();
+
+        var lines = FileUtils.readLines(file, "UTF-8");
+        lines.remove(0); // Delete header.
+
+        for (var line : lines)
+        {
+            var tokens = line.split(",");
+            var day = tokens[0];
+            var libelle = tokens[3];
+
+            var closedDay = new JourFerie()
+                .setDate(LocalDate.parse(day))
+                .setType(type)
+                .setLibelle(libelle);
+
+            jourFerieRepository.save(closedDay);
+        }
     }
 }
