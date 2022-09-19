@@ -50,7 +50,9 @@ public class SecurityConfiguration
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception
     {
-        httpSecurity.authorizeHttpRequests(requests -> requests.anyRequest().authenticated()).httpBasic(Customizer.withDefaults()).securityContext(context -> context.securityContextRepository(new RequestAttributeSecurityContextRepository()));
+        httpSecurity
+            .csrf().disable().cors().and() // Was causing issues with non-GET methods. https://docs.spring.io/spring-security/site/docs/5.0.x/reference/html/csrf.html
+            .authorizeHttpRequests(requests -> requests.anyRequest().authenticated()).httpBasic(Customizer.withDefaults()).securityContext(context -> context.securityContextRepository(new RequestAttributeSecurityContextRepository()));
 
         return httpSecurity.build();
     }

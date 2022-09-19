@@ -1,5 +1,6 @@
 package gestion_conges.server.services;
 
+import gestion_conges.server.dto.AbsenceDTO;
 import gestion_conges.server.entities.Absence;
 import gestion_conges.server.entities.Salarie;
 
@@ -7,9 +8,13 @@ import java.util.stream.Stream;
 
 public interface AbsenceService {
 
-    public void addAbsence(Salarie salarie);
-    public void deleteAbsence(int id);
-    public Absence readAbsence(int id);
-    public Absence updateAbsence( Absence absence, int id);
+    public Absence addAbsence(Salarie salarie, AbsenceDTO absence);
+    public void deleteAbsence(Salarie salarie, int id);
+
+    Absence readAbsence(Salarie salarie, int id);
+
+    public Absence updateAbsence(Salarie absence, AbsenceDTO absenceDTO);
+
+
     public Stream<Absence> listAbsences(Salarie salarie);
 }
