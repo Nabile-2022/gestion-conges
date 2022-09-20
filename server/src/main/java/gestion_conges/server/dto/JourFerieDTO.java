@@ -20,7 +20,6 @@ public class JourFerieDTO {
     private  int id;
     private LocalDate date;
     private String libelle;
-
     private TypeJourFerieEnum type;
 
     public JourFerieDTO(JourFerie jourFerie){
@@ -28,7 +27,6 @@ public class JourFerieDTO {
         date=jourFerie.getDate();
         libelle= jourFerie.getLibelle();
         type=jourFerie.getType().getLibelle();
-
     }
 
 }
