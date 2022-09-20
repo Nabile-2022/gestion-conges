@@ -1,5 +1,4 @@
-export enum TypeJourFerie
-{
-  Ferie,
-  RTT
+export enum TypeJourFerie {
+  Ferie = 'Ferie',
+  RTT = 'RTT'
 }

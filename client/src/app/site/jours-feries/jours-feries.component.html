@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <h1 class="mt-5 text-center">Jours fériés et RTT employeurs</h1>
+  </div>
+
+  <div class="row mt-3 form-group justify-content-center">
+    <div class="col-md-1 text-end">
+      <label for="year" class="pt-2">Année</label>
+    </div>
+
+    <div class="col-md-1">
+      <select class="form-select">
+        <option *ngFor="let year of getYears()" [value]="year">
+          {{ year }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row mt-5 justify-content-center">
+    <div class="col-md-6">
+      <table class="table table-dark table-striped table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Jour</th>
+            <th>Commentaires</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let jourferie of jourFeries">
+            <td>{{jourferie.date.toLocaleDateString(undefined, {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}) }}</td>
+            <td>{{typeJourFerieLabels.get(jourferie.type)}}</td>
+            <td>{{jourferie.date.toLocaleDateString(undefined, {weekday: 'long'})}}</td>
+            <td>{{jourferie.libelle}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+</div>

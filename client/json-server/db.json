@@ -193,5 +193,25 @@
   "absences.compteur": {
     "nombreRTT": 3,
     "nombreCongesPayes": 15
-  }
+  },
+  "jours-feries" : [
+    {
+      "id": 1,
+      "date": "2022-09-01",
+      "libelle": "",
+      "type": "RTT"
+    },
+    {
+      "id": 2,
+      "date": "2022-09-03",
+      "libelle": "test",
+      "type": "RTT"
+    },
+    {
+      "id": 3,
+      "date": "2019-11-24",
+      "libelle": "test",
+      "type": "Ferie"
+    }
+  ]
 }

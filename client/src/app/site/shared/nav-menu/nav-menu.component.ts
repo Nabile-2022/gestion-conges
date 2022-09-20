@@ -13,6 +13,7 @@ export class NavMenuComponent implements OnInit
   [
     { path: '', name: 'Accueil' },
     { path: 'gestion-absences', name: 'Gestion des absences' },
+    { path: 'jours-feries', name: 'Jours fériés' },
   ];
 
   constructor(appComponent: AppComponent)
