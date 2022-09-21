@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GestionAbsencesComponent } from './gestion-absences.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { DeleteModalComponent } from './delete-modal/delete-modal.component';
 
 const routes: Routes =
   [
@@ -11,7 +12,8 @@ const routes: Routes =
 
 @NgModule({
   declarations: [
-    GestionAbsencesComponent
+    GestionAbsencesComponent,
+    DeleteModalComponent
   ],
   imports: [
     CommonModule,

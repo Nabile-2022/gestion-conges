@@ -7,6 +7,7 @@ import { typeAbsenceLabels } from 'src/app/localisation/french';
 import { AbsenceService } from 'src/app/services/absence.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormValidators } from '../shared/form-validators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-demande-absence',
@@ -16,23 +17,42 @@ import { FormValidators } from '../shared/form-validators';
 
 export class DemandeAbsenceComponent implements OnInit
 {
+  // TODO: switch on route path (submit = put|post, title...)
   form!: FormGroup;
   absence!: Absence;
+  submitAction!: () => Observable<Absence>;
+  title!: string;
 
   typeAbsences = Object.values(TypeAbsence).filter(k => isNaN(Number(k)));
   typeAbsenceLabels = typeAbsenceLabels;
 
   constructor(private formBuilder: FormBuilder, private absenceService: AbsenceService, private router: Router, private route: ActivatedRoute)
   {
-    this.absence =
+    route.url.subscribe(path =>
     {
-      id: 0,
-      dateDebut: new Date(),
-      dateFin: new Date(),
-      motif: '',
-      type: TypeAbsence.CongePaye,
-      statut: StatutAbsence.Initiale
-    };
+      switch (path[path.length - 1].path)
+      {
+        case 'demande':
+          this.submitAction = () => this.absenceService.addAbsence(this.absence);
+          this.title = "Demande d'une absence";
+          this.absence =
+          {
+            id: 0,
+            dateDebut: new Date(),
+            dateFin: new Date(),
+            motif: '',
+            type: TypeAbsence.CongePaye,
+            statut: StatutAbsence.Initiale
+          };
+          break;
+        case 'modifier':
+          this.submitAction = () => this.absenceService.updateAbsence(this.absence);
+          this.title = "Modification d'une absence";
+          const nav = this.router.getCurrentNavigation();
+          this.absence = nav?.extras && nav.extras.state && nav.extras.state['absence'];
+          break;
+      }
+    });
   }
 
   ngOnInit(): void
@@ -47,7 +67,7 @@ export class DemandeAbsenceComponent implements OnInit
     );
   }
 
-  addAbsence(): void
+  submit(): void
   {
     this.form.controls['motif'].updateValueAndValidity();
 
@@ -55,7 +75,7 @@ export class DemandeAbsenceComponent implements OnInit
 
     if (this.form.valid && datesValid)
     {
-      this.absenceService.addAbsence(this.absence).subscribe(a => this.router.navigate(['..'], { relativeTo: this.route }));
+      this.submitAction().subscribe(a => this.router.navigate(['..'], { relativeTo: this.route }));
     }
   }
 }

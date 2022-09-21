@@ -1,7 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GestionAbsencesModule } from './site/gestion-absences/gestion-absences.module';
@@ -10,6 +9,8 @@ import { HomeModule } from './site/home/home.module';
 import { LoginModule } from './site/login/login.module';
 import { SharedModule } from './site/shared/shared.module';
 import { JoursFeriesModule } from './site/jours-feries/jours-feries.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { JoursFeriesModule } from './site/jours-feries/jours-feries.module';
     DemandeAbsenceModule,
     JoursFeriesModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

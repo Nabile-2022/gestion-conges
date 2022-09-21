@@ -1,6 +1,6 @@
 <div class="container">
-  <h1 class="mb-5 mt-5 text-center">Demande d'une absence</h1>
-  <form (ngSubmit)="addAbsence()" [formGroup]="form">
+  <h1 class="mb-5 mt-5 text-center">{{title}}</h1>
+  <form (ngSubmit)="submit()" [formGroup]="form">
     <div class="mb-4 row">
       <label class="form-label offset-2 col-2 text-end" for="dateDebut">Date de début</label>
       <input class="col-3" formControlName="dateDebut" type="date" [(ngModel)]="absence.dateDebut">

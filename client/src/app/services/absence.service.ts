@@ -39,4 +39,9 @@ export class AbsenceService
   {
     return this.http.post<Absence>(ENDPOINT, absence);
   }
+
+  updateAbsence(absence: Absence): Observable<Absence>
+  {
+    return this.http.put<Absence>(`${ENDPOINT}/${absence.id}`, absence);
+  }
 }
