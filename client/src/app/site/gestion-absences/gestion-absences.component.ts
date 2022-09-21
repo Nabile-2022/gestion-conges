@@ -4,6 +4,7 @@ import { CompteurAbsences } from 'src/app/models/compteur-absences';
 import { AbsenceService } from 'src/app/services/absence.service';
 import { StatutAbsence } from 'src/app/models/statut-absence';
 import { typeAbsenceLabels, statutAbsenceLabels } from 'src/app/localisation/french';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-gestion-absences',
@@ -18,7 +19,7 @@ export class GestionAbsencesComponent implements OnInit
   typeAbsenceLabels = typeAbsenceLabels;
   statutAbsenceLabels = statutAbsenceLabels;
 
-  constructor(private absenceService: AbsenceService) { }
+  constructor(private absenceService: AbsenceService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void
   {
@@ -30,7 +31,7 @@ export class GestionAbsencesComponent implements OnInit
 
   edit(absence: Absence)
   {
-    // TODO: Open an in-page modal.
+    this.router.navigate(['modifier'], { relativeTo: this.route, state: { absence: absence } });
   }
 
   delete(absence: Absence)
