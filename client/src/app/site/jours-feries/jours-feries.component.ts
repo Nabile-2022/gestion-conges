@@ -13,17 +13,25 @@ export class JoursFeriesComponent implements OnInit {
 
   jourFeries !: JourFerie[];
   typeJourFerieLabels = typeJourFerieLabels;
+  filteredJoursFeries !: JourFerie[];
+  selectedYear !: any;
 
   constructor(private jourFerieService: JoursFeriesService) { }
 
   ngOnInit(): void {
-    this.jourFerieService.list().subscribe(jourFeries => this.jourFeries = jourFeries);
+    this.jourFerieService.list().subscribe(jourFeries => {
+      this.jourFeries = jourFeries;
+      this.selectedYear = new Date().getFullYear().toString();
+      this.filterJourFeries(this.selectedYear);
+    });
   }
 
   getYears(): number[] {
-    return [...new Set(this.jourFeries.map(jour => jour.date.getFullYear()).sort((a,b) => a - b))];
+    return [...new Set(this.jourFeries.map(jour => jour.date.getFullYear()).sort((a, b) => a - b))];
   }
 
-
+  filterJourFeries(selectedYear: string) {
+    this.filteredJoursFeries = this.jourFeries.filter(jourFerie => jourFerie.date.getFullYear() === Number(selectedYear));
+  }
 
 }

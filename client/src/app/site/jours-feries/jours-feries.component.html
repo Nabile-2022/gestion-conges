@@ -9,7 +9,7 @@
     </div>
 
     <div class="col-md-1">
-      <select class="form-select">
+      <select class="form-select" [(ngModel)]="selectedYear" (change)="filterJourFeries(selectedYear)">
         <option *ngFor="let year of getYears()" [value]="year">
           {{ year }}
         </option>
@@ -30,7 +30,7 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let jourferie of jourFeries">
+          <tr *ngFor="let jourferie of filteredJoursFeries">
             <td>{{jourferie.date.toLocaleDateString(undefined, {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}) }}</td>
             <td>{{typeJourFerieLabels.get(jourferie.type)}}</td>
             <td>{{jourferie.date.toLocaleDateString(undefined, {weekday: 'long'})}}</td>
