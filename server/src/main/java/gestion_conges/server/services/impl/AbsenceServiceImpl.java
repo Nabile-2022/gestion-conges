@@ -11,9 +11,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.stream.Stream;
+
+import static gestion_conges.server.helpers.DateHelpers.isWeekEnd;
 
 @Service
 @Transactional // This ensures everything gets persisted to the DB.
@@ -25,11 +26,6 @@ public class AbsenceServiceImpl implements AbsenceService
     private StatutAbsenceRepository statutAbsenceRepository;
     private JourFerieRepository jourFerieRepository;
     private SalarieRepository salarieRepository;
-
-    private boolean isWeekEnd(LocalDate date)
-    {
-        return Stream.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY).anyMatch(d -> d == date.getDayOfWeek());
-    }
 
     private boolean isClosed(LocalDate date)
     {
