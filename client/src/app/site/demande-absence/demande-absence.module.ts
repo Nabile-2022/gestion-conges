@@ -8,6 +8,7 @@ import { AuthGuard } from 'src/app/guards/auth.guard';
 const routes: Routes =
 [
   { path: 'gestion-absences/demande', component: DemandeAbsenceComponent, canActivate: [AuthGuard]  },
+  { path: 'gestion-absences/modifier', component: DemandeAbsenceComponent, canActivate: [AuthGuard]  },
 ];
 
 @NgModule({
