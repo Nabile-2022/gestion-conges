@@ -8,7 +8,7 @@ import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes =
   [
-    { path: 'jours-feries', component: JoursFeriesComponent, /*canActivate: [AuthGuard]*/}
+    { path: 'jours-feries', component: JoursFeriesComponent, canActivate: [AuthGuard]}
   ];
 
 @NgModule({
