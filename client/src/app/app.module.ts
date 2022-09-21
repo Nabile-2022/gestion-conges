@@ -9,6 +9,7 @@ import { DemandeAbsenceModule } from './site/demande-absence/demande-absence.mod
 import { HomeModule } from './site/home/home.module';
 import { LoginModule } from './site/login/login.module';
 import { SharedModule } from './site/shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SharedModule } from './site/shared/shared.module';
     GestionAbsencesModule,
     DemandeAbsenceModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
