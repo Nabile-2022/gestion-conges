@@ -1,3 +1,4 @@
+import { Absence } from "./absence";
 import { Role } from "./role";
 
 export interface Salarie
@@ -6,4 +7,5 @@ export interface Salarie
   prenom: string;
   email: string;
   role: Role;
+  absences:Absence[];
 }

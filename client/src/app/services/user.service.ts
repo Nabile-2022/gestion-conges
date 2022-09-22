@@ -35,7 +35,8 @@ export class UserService
       nom: 'Nom',
       prenom: 'Prénom',
       email: 'e@mail.org',
-      role: role
+      role: role,
+      absences:[]
     };
     this._onAuthentication.next(this._user !== undefined);
 
