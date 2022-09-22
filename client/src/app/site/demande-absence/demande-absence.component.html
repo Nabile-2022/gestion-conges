@@ -3,11 +3,11 @@
   <form (ngSubmit)="submit()" [formGroup]="form">
     <div class="mb-4 row">
       <label class="form-label offset-2 col-2 text-end" for="dateDebut">Date de début</label>
-      <input class="col-3" formControlName="dateDebut" type="date" [(ngModel)]="absence.dateDebut">
+      <input class="col-3" formControlName="dateDebut" type="date" #dateDebut (change)="absence.dateDebut = dateFromISOFormat(dateDebut.value)">
     </div>
     <div class="mb-4 row">
       <label class="form-label offset-2 col-2 text-end" for="dateFin">Date de fin</label>
-      <input class="col-3" formControlName="dateFin" type="date" [(ngModel)]="absence.dateFin">
+      <input class="col-3" formControlName="dateFin" type="date" #dateFin (change)="absence.dateFin = dateFromISOFormat(dateFin.value)">
     </div>
     <div class="mb-4 row">
       <label class="form-label offset-2 col-2 text-end" for="type">Type de congé</label>
