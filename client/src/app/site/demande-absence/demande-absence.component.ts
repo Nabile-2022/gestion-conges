@@ -59,8 +59,8 @@ export class DemandeAbsenceComponent implements OnInit
   {
     this.form = this.formBuilder.group(
       {
-        dateDebut: [this.absence.dateDebut, { validators: [FormValidators.pastDate(this.absence.dateDebut)] }],
-        dateFin: [this.absence.dateFin, { validators: [FormValidators.pastDate(this.absence.dateFin)] }],
+        dateDebut: [this.dateToFormInputValue(this.absence.dateDebut), { validators: [FormValidators.pastDate(this.absence.dateDebut)] }],
+        dateFin: [this.dateToFormInputValue(this.absence.dateFin), { validators: [FormValidators.pastDate(this.absence.dateFin)] }],
         type: this.absence.type,
         motif: [this.absence.motif, { validators: [FormValidators.nonEmptyText(this.absence)] }]
       }
@@ -78,4 +78,14 @@ export class DemandeAbsenceComponent implements OnInit
       this.submitAction().subscribe(a => this.router.navigate(['..'], { relativeTo: this.route }));
     }
   }
+
+  /**
+   * The template needs to assign the form control value back to the component's variable, so it needs to go through this function.
+   */
+  dateFromISOFormat(date: string): Date { return new Date(date); }
+
+  /**
+   * Converts a date to the format that the HTML date input form control expects ('YYYY-MM-dd').
+   */
+  dateToFormInputValue(date: Date): string { return date.toISOString().split('T')[0]; }
 }
