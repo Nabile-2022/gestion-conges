@@ -1,3 +1,4 @@
+import { StatutAbsence } from "./statut-absence";
 import { TypeJourFerie } from "./type-jour-ferie";
 
 export interface JourFerie
@@ -6,4 +7,5 @@ export interface JourFerie
   date: Date;
   libelle: string;
   type: TypeJourFerie;
+  statut: StatutAbsence;
 }

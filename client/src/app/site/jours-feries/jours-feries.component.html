@@ -26,20 +26,28 @@
             <th>Type</th>
             <th>Jour</th>
             <th>Commentaires</th>
+            <th *ngIf="isAdminUser()" class="col-1"></th>
           </tr>
         </thead>
 
         <tbody>
           <tr *ngFor="let jourferie of filteredJoursFeries">
-            <td>{{jourferie.date.toLocaleDateString(undefined, {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}) }}</td>
+            <td>{{jourferie.date.toLocaleDateString(undefined, {weekday: 'long', year: 'numeric', month: 'long', day:
+              'numeric'}) }}</td>
             <td>{{typeJourFerieLabels.get(jourferie.type)}}</td>
             <td>{{jourferie.date.toLocaleDateString(undefined, {weekday: 'long'})}}</td>
             <td>{{jourferie.libelle}}</td>
+            <td *ngIf="isAdminUser()" class="d-flex justify-content-end">
+              <button *ngIf="isEditable(jourferie)" class="btn btn-warning mx-1" (click)="edit(jourferie)">✏️</button>
+              <button class="btn btn-danger mx-1" (click)="delete(jourferie)">🗑️</button>
+            </td>
           </tr>
         </tbody>
       </table>
+
+      <div *ngIf="isAdminUser()" class="row mt-1 justify-content-end">
+        <button class="btn btn-primary col-1 me-3" routerLink="ajouter">Ajouter</button>
+      </div>
     </div>
   </div>
-
-
 </div>

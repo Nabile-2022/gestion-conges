@@ -4,6 +4,7 @@ import { JoursFeriesComponent } from './jours-feries.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { DeleteModalComponent } from './delete-modal/delete-modal.component';
 
 
 const routes: Routes =
@@ -13,7 +14,8 @@ const routes: Routes =
 
 @NgModule({
   declarations: [
-    JoursFeriesComponent
+    JoursFeriesComponent,
+    DeleteModalComponent
   ],
   imports: [
     CommonModule,

@@ -21,4 +21,8 @@ export class JoursFeriesService {
   list(): Observable<JourFerie[]>{
     return this.http.get(ENDPOINT,{ responseType: 'text' }).pipe(map(response => JSON.parse(response, this.reviveDates)));
   }
+
+  delete(jourFerie: JourFerie): Observable<any>{
+    return this.http.delete(`${ENDPOINT}/${jourFerie.id}`);
+  }
 }
