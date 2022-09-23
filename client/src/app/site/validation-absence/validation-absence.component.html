@@ -10,14 +10,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let absence of salarie.absences">
-      <td>{{absence.dateDebut.toLocaleDateString()}}</td>
-      <td>{{absence.dateFin.toLocaleDateString()}}</td>
-      <td>{{typeAbsenceLabels.get(absence.type)}}</td>
-      <td>{{statutAbsenceLabels.get(absence.statut)}}</td>
+    <tr *ngFor="let absence of absences">
+      <td>{{dateFromString(absence.absence.dateDebut).toLocaleDateString()}}</td>
+      <td>{{dateFromString(absence.absence.dateFin).toLocaleDateString()}}</td>
+      <td>{{typeAbsenceLabels.get(absence.absence.type.libelle)}}</td>
+      <td>{{absence.salarie.nom}}</td>
       <td class="d-flex justify-content-end">
-        <button  class="btn btn-success mx-1" (click)="confirm(absence)">✔️</button>
-        <button class="btn btn-danger mx-1" (click)="reject(absence)">❌</button>
+        <button  class="btn btn-success mx-1" (click)="confirm(absence.absence)">✔️</button>
+        <button class="btn btn-danger mx-1" (click)="reject(absence.absence)">❌</button>
       </td>
     </tr>
   </tbody>

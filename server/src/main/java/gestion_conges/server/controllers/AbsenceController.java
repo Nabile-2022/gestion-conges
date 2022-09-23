@@ -1,6 +1,8 @@
 package gestion_conges.server.controllers;
 
 import gestion_conges.server.dto.AbsenceDTO;
+import gestion_conges.server.entities.CompteurAbsences;
+import gestion_conges.server.entities.Manager;
 import gestion_conges.server.security.SalarieUserDetails;
 import gestion_conges.server.services.AbsenceService;
 import lombok.AllArgsConstructor;
@@ -57,5 +59,33 @@ public class AbsenceController
         var salarie = salarieUserDetails.getSalarie();
 
         return new AbsenceDTO(absenceService.readAbsence(salarie, id));
+    }
+
+    @PutMapping(path = "validate/{id}")
+    public AbsenceDTO validate(@AuthenticationPrincipal SalarieUserDetails salarieUserDetails, @PathVariable int id)
+    {
+        var manager = salarieUserDetails.getSalarie();
+
+        if (!(manager instanceof Manager))
+            throw new RuntimeException("Seuls les managers peuvent accéder à cette interface.");
+
+        return new AbsenceDTO(absenceService.validate(id));
+    }
+
+    @DeleteMapping(path = "reject/{id}")
+    public AbsenceDTO reject(@AuthenticationPrincipal SalarieUserDetails salarieUserDetails, @PathVariable int id)
+    {
+        var manager = salarieUserDetails.getSalarie();
+
+        if (!(manager instanceof Manager))
+            throw new RuntimeException("Seuls les managers peuvent accéder à cette interface.");
+
+        return new AbsenceDTO(absenceService.reject(id));
+    }
+
+    @GetMapping(path = "compteur")
+    public CompteurAbsences getCompteur(@AuthenticationPrincipal SalarieUserDetails salarieUserDetails)
+    {
+        return salarieUserDetails.getSalarie().getCompteurAbsences();
     }
 }

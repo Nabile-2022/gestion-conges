@@ -50,4 +50,14 @@ export class AbsenceService
   {
     return this.http.put<Absence>(`${ENDPOINT}/${absence.id}`, absence, { headers: this.basicAuth() });
   }
+
+  validate(absence: Absence): Observable<Absence>
+  {
+    return this.http.put<Absence>(`${ENDPOINT}/validate/${absence.id}`, null, { headers: this.basicAuth() });
+  }
+
+  reject(absence: Absence): Observable<Absence>
+  {
+    return this.http.delete<Absence>(`${ENDPOINT}/reject/${absence.id}`, { headers: this.basicAuth() });
+  }
 }

@@ -43,8 +43,8 @@ public class InitialisationService
         var absences =
             Set.of(
                 new Absence()
-                    .setDateDebut(LocalDate.now())
-                    .setDateFin(LocalDate.now().plusDays(1))
+                    .setDateDebut(LocalDate.now().plusDays(1))
+                    .setDateFin(LocalDate.now().plusDays(2))
                     .setMotif("Un motif.")
                     .setType(typeAbsenceRepository.findByLibelle(TypeAbsenceEnum.CongeNonPaye).get())
                     .setStatut(statutAbsenceRepository.findByLibelle(StatutAbsenceEnum.Initiale).get())
@@ -52,7 +52,10 @@ public class InitialisationService
 
         absenceRepository.saveAll(absences);
 
-        var compteurAbsences = new CompteurAbsences();
+        var compteurAbsences = new CompteurAbsences()
+            .setNombreRTT(11)
+            .setNombreCongesPayes(25);
+
         var compteurAbsencesManager = new CompteurAbsences();
         var compteurAbsencesAdministrateur = new CompteurAbsences();
         compteurAbsencesRepository.save(compteurAbsences);

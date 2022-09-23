@@ -17,4 +17,9 @@ public interface AbsenceService {
 
 
     public Stream<Absence> listAbsences(Salarie salarie);
+
+    Absence validate(int id);
+
+    Absence reject(int id);
+    void processAbsences();
 }
