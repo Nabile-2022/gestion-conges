@@ -35,6 +35,7 @@ export class UserService
     this.http.post<Salarie>(ENDPOINT, { role: role }).subscribe(user =>
     {
       this._user = user;
+      this._user.role = role;
       this._onAuthentication.next(this._user !== undefined);
     });
 
