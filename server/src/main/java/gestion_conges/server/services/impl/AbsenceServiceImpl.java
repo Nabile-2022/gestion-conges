@@ -3,6 +3,7 @@ package gestion_conges.server.services.impl;
 import gestion_conges.server.dto.AbsenceDTO;
 import gestion_conges.server.entities.Absence;
 import gestion_conges.server.entities.CompteurAbsences;
+import gestion_conges.server.entities.JourFerie;
 import gestion_conges.server.entities.Salarie;
 import gestion_conges.server.enums.StatutAbsenceEnum;
 import gestion_conges.server.enums.TypeAbsenceEnum;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static gestion_conges.server.helpers.DateHelpers.isWeekEnd;
@@ -33,12 +35,12 @@ public class AbsenceServiceImpl implements AbsenceService
     private SalarieRepository salarieRepository;
     private CompteurAbsencesRepository compteurAbsencesRepository;
 
-    private boolean isClosed(LocalDate date)
+    private boolean isClosed(LocalDate date, List<JourFerie> closedDays)
     {
-        return jourFerieRepository.findAll().stream().anyMatch(d -> d.getDate().equals(date));
+        return closedDays.stream().anyMatch(d -> d.getDate().equals(date));
     }
 
-    private void checkAbsence(Salarie salarie, Absence absence)
+    private void checkAbsence(Salarie salarie, Absence absence, List<JourFerie> closedDays)
     {
         var currentDate = LocalDate.now().plusDays(1);
 
@@ -51,7 +53,7 @@ public class AbsenceServiceImpl implements AbsenceService
         if (absence.getType().getLibelle() == TypeAbsenceEnum.CongeNonPaye && absence.getMotif().trim().isEmpty())
             throw new RuntimeException("Un congé non-payé doit posséder un motif.");
 
-        if (Stream.of(absence.getDateDebut(), absence.getDateFin()).anyMatch(a -> isWeekEnd(a) || isClosed(a)))
+        if (Stream.of(absence.getDateDebut(), absence.getDateFin()).anyMatch(a -> isWeekEnd(a) || isClosed(a, closedDays)))
             throw new RuntimeException("Un congé ne peut être pris lors d'un week-end ou d'un jour férié");
 
         /*/ TODO: Unit tests.
@@ -107,10 +109,11 @@ public class AbsenceServiceImpl implements AbsenceService
         {
             var date = absence.getDateDebut();
             var jours = 0;
+            var closedDays = jourFerieRepository.findAll();
 
             while (date.isBefore(absence.getDateFin()))
             {
-                if (!isWeekEnd(date))
+                if (!(isWeekEnd(date) || isClosed(date, closedDays)))
                     jours++;
 
                 date = date.plusDays(1);
@@ -142,7 +145,7 @@ public class AbsenceServiceImpl implements AbsenceService
             .setType(typeAbsenceRepository.findByLibelle(absenceDTO.getType()).orElseThrow(() -> new RuntimeException("Type d'absence incorrect")))
             .setStatut(statutAbsenceRepository.findByLibelle(StatutAbsenceEnum.Initiale).get());
 
-        checkAbsence(salarie, absence);
+        checkAbsence(salarie, absence, jourFerieRepository.findAll());
 
         salarie.getAbsences().add(absence);
         absenceRepository.save(absence);
@@ -161,7 +164,8 @@ public class AbsenceServiceImpl implements AbsenceService
         salarie.getAbsences().remove(absence);
         salarieRepository.save(salarie);
 
-        returnDaysToCounter(absence, compteur);
+        if (absence.getStatut().getLibelle() != StatutAbsenceEnum.Rejetee)
+            returnDaysToCounter(absence, compteur);
     }
 
     @Override
@@ -184,7 +188,7 @@ public class AbsenceServiceImpl implements AbsenceService
             .setType(typeAbsenceRepository.findByLibelle(absenceDTO.getType()).orElseThrow(() -> new RuntimeException("Type d'absence incorrect")))
             .setStatut(statutAbsenceRepository.findByLibelle(StatutAbsenceEnum.Initiale).get());
 
-        checkAbsence(salarie, absence);
+        checkAbsence(salarie, absence, jourFerieRepository.findAll());
         absenceRepository.save(absence);
 
         return absence;
@@ -216,11 +220,14 @@ public class AbsenceServiceImpl implements AbsenceService
     {
         var absence = absenceRepository.findById(id).get();
 
-        if (!Stream.of(StatutAbsenceEnum.EnAttente, StatutAbsenceEnum.Rejetee).anyMatch(s -> s == absence.getStatut().getLibelle()))
-            throw new RuntimeException("Seules les absences en attente ou rejetées peuvent être rejetées.");
+        if (absence.getStatut().getLibelle() != StatutAbsenceEnum.EnAttente)
+            throw new RuntimeException("Seules les absences en attente peuvent être rejetées.");
 
         absence.setStatut(statutAbsenceRepository.findByLibelle(StatutAbsenceEnum.Rejetee).get());
         absenceRepository.save(absence);
+
+        var salarie = salarieRepository.findAll().stream().filter(s -> s.getAbsences().contains(absence)).findFirst().get();
+        returnDaysToCounter(absence, salarie.getCompteurAbsences());
 
         return absence;
     }
@@ -228,6 +235,8 @@ public class AbsenceServiceImpl implements AbsenceService
     @Scheduled(fixedDelay = 1000) // TODO: Move elsewhere.
     public void processAbsences()
     {
+        var closedDays = jourFerieRepository.findAll();
+
         for (var absence : absenceRepository.findAll().stream().sorted(Comparator.comparing(Absence::getDateDebut)).toList())
         {
             try
@@ -235,7 +244,7 @@ public class AbsenceServiceImpl implements AbsenceService
                 var salarie = salarieRepository.findAll().stream().filter(s -> s.getAbsences().contains(absence)).findFirst().get();
                 var compteur = salarie.getCompteurAbsences();
 
-                checkAbsence(salarie, absence);
+                checkAbsence(salarie, absence, closedDays);
 
                 if (absence.getStatut().getLibelle() == StatutAbsenceEnum.Initiale)
                 {
@@ -244,7 +253,7 @@ public class AbsenceServiceImpl implements AbsenceService
 
                     while (date.isBefore(absence.getDateFin()))
                     {
-                        if (!isWeekEnd(date))
+                        if (!(isWeekEnd(date) || isClosed(date, closedDays)))
                             jours++;
 
                         date = date.plusDays(1);
