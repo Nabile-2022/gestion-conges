@@ -31,7 +31,7 @@ public class SalarieUserDetails implements UserDetails
     @Override
     public String getPassword()
     {
-        return "$2a$10$EYQqbVlO8TnkFFaqUSc3q.63Mc/fLzmjAhUBlcQatizBavsfs.aOi"; // TODO ("null" bcrypted)
+        return salarie.getPassword();
     }
 
     @Override

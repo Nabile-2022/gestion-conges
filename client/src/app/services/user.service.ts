@@ -1,7 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Role } from '../models/role';
 import { Salarie } from '../models/salarie';
+
+const ENDPOINT = "http://localhost:21394/api/login";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +14,7 @@ export class UserService
   private _user?: Salarie;
   private _onAuthentication = new BehaviorSubject(false);
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   get user() { return this._user; }
 
@@ -29,16 +32,11 @@ export class UserService
    */
   login(role: Role): Observable<boolean>
   {
-    // TODO :(
-    this._user =
+    this.http.post<Salarie>(ENDPOINT, { role: role }).subscribe(user =>
     {
-      nom: 'Nom',
-      prenom: 'Prénom',
-      email: 'e@mail.org',
-      role: role,
-      absences:[]
-    };
-    this._onAuthentication.next(this._user !== undefined);
+      this._user = user;
+      this._onAuthentication.next(this._user !== undefined);
+    });
 
     return this.onAuthentication;
   }

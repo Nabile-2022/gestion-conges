@@ -20,7 +20,7 @@ export class ValidationAbsenceComponent implements OnInit {
           nom:"Nom",
           prenom:"Prenom",
           email:"",
-          role:Role.Employee,
+          role:Role.Salarie,
           absences:[
             {
               id:0,

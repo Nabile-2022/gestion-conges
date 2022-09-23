@@ -23,6 +23,7 @@ public class Salarie
     private String prenom;
     @Column(unique = true)
     private String email;
+    private String password;
 
     @ManyToOne
     private CompteurAbsences compteurAbsences;
