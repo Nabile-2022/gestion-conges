@@ -6,7 +6,7 @@
   </button>
   <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" *ngFor="let route of routes">
+      <li class="nav-item" *ngFor="let route of routesForUser">
         <a class="nav-link" [routerLink]="route.path" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{route.name}}</a>
       </li>
     </ul>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
+import { Role } from 'src/app/models/role';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -14,10 +16,10 @@ export class NavMenuComponent implements OnInit
       { path: '', name: 'Accueil' },
       { path: 'gestion-absences', name: 'Gestion des absences' },
       { path: 'jours-feries', name: 'Jours fériés' },
-      { path: 'validation-absences', name: 'Validation demandes' }
+      { path: 'validation-absences', name: 'Validation demandes', roles: [Role.Manager] }
     ];
 
-  constructor(appComponent: AppComponent)
+  constructor(appComponent: AppComponent, private userService: UserService)
   {
     this.title = appComponent.title;
   }
@@ -25,4 +27,6 @@ export class NavMenuComponent implements OnInit
   ngOnInit(): void
   {
   }
+
+  get routesForUser() { return this.routes.filter(r => !r.roles || r.roles.includes(this.userService.user?.role!))}
 }
