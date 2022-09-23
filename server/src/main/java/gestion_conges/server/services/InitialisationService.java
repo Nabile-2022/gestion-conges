@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.aspectj.util.FileUtil;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -53,13 +54,18 @@ public class InitialisationService
 
         var compteurAbsences = new CompteurAbsences();
         var compteurAbsencesManager = new CompteurAbsences();
+        var compteurAbsencesAdministrateur = new CompteurAbsences();
         compteurAbsencesRepository.save(compteurAbsences);
         compteurAbsencesRepository.save(compteurAbsencesManager);
+        compteurAbsencesRepository.save(compteurAbsencesAdministrateur);
+
+        var passwordEncoder = new BCryptPasswordEncoder();
 
         var salarie = new Salarie()
-            .setNom("Nom")
+            .setNom("Salarié")
             .setPrenom("Prénom")
-            .setEmail("e@mail.org")
+            .setEmail("Salarie")
+            .setPassword(passwordEncoder.encode("Salarie"))
             .setCompteurAbsences(compteurAbsences)
             .setDepartement(departement)
             .setAbsences(absences);
@@ -68,13 +74,25 @@ public class InitialisationService
 
         var manager = new Manager();
         manager
-            .setNom("Nom")
+            .setNom("Manager")
             .setPrenom("Prénom")
-            .setEmail("manage@mail.org")
+            .setEmail("Manager")
+            .setPassword(passwordEncoder.encode("Manager"))
             .setCompteurAbsences(compteurAbsencesManager)
             .setDepartement(departement);
 
         managerRepository.save(manager);
+
+        var administrateur = new Administrateur();
+        administrateur
+            .setNom("Administrateur")
+            .setPrenom("Prénom")
+            .setEmail("Administrateur")
+            .setPassword(passwordEncoder.encode("Administrateur"))
+            .setCompteurAbsences(compteurAbsencesAdministrateur)
+            .setDepartement(departement);
+
+        administrateurRepository.save(administrateur);
     }
 
     private void populateEnums()
