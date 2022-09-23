@@ -10,6 +10,7 @@ import { LoginModule } from './site/login/login.module';
 import { SharedModule } from './site/shared/shared.module';
 import { JoursFeriesModule } from './site/jours-feries/jours-feries.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ValidationAbsenceModule } from './site/validation-absence/validation-absence.module';
 
 
 @NgModule({
@@ -26,7 +27,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     JoursFeriesModule,
     SharedModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    ValidationAbsenceModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

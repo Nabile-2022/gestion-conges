@@ -10,11 +10,12 @@ export class NavMenuComponent implements OnInit
 {
   title: string;
   routes =
-  [
-    { path: '', name: 'Accueil' },
-    { path: 'gestion-absences', name: 'Gestion des absences' },
-    { path: 'jours-feries', name: 'Jours fériés' },
-  ];
+    [
+      { path: '', name: 'Accueil' },
+      { path: 'gestion-absences', name: 'Gestion des absences' },
+      { path: 'jours-feries', name: 'Jours fériés' },
+      { path: 'validation-absences', name: 'Validation demandes' }
+    ];
 
   constructor(appComponent: AppComponent)
   {

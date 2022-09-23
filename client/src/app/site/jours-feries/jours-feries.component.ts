@@ -43,7 +43,7 @@ export class JoursFeriesComponent implements OnInit {
   }
 
   isAdminUser(): boolean {
-    return this.userService.user?.role === Role.Administrator;
+    return this.userService.user?.role === Role.Administrateur;
   }
 
   isEditable(jourFerie: JourFerie): boolean {

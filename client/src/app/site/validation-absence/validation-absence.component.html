@@ -1,0 +1,24 @@
+<h1 class="mb-5">Validation des demandes</h1>
+<table class="table table-dark table-striped table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th>Date de début</th>
+      <th>Date de fin</th>
+      <th>Type</th>
+      <th>Nom</th>
+      <th class="col-1">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let absence of salarie.absences">
+      <td>{{absence.dateDebut.toLocaleDateString()}}</td>
+      <td>{{absence.dateFin.toLocaleDateString()}}</td>
+      <td>{{typeAbsenceLabels.get(absence.type)}}</td>
+      <td>{{statutAbsenceLabels.get(absence.statut)}}</td>
+      <td class="d-flex justify-content-end">
+        <button  class="btn btn-success mx-1" (click)="confirm(absence)">✔️</button>
+        <button class="btn btn-danger mx-1" (click)="reject(absence)">❌</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

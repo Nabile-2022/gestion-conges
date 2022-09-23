@@ -1,6 +1,8 @@
 package gestion_conges.server.controllers;
 
 import gestion_conges.server.dto.AuthenticationData;
+import gestion_conges.server.entities.Salarie;
+import gestion_conges.server.security.SalarieUserDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,20 +22,12 @@ public class AccountController
 
     @PostMapping(path = "login")
     @ResponseStatus(HttpStatus.CREATED)
-    public void login(@RequestBody AuthenticationData authenticationData)
+    public Salarie login(@RequestBody AuthenticationData authenticationData)
     {
-        var token = new UsernamePasswordAuthenticationToken("e@mail.org", "null");
+        var token = new UsernamePasswordAuthenticationToken(authenticationData.getRole(), authenticationData.getRole());
         var authentication = authenticationManager.authenticate(token);
+        var salarie = ((SalarieUserDetails)authentication.getPrincipal()).getSalarie();
 
-        // TODO: How to handle roles.
-        switch (authenticationData.getRole())
-        {
-            case "Salarie":
-                break;
-            case "Manager":
-                break;
-            case "Administrateur":
-                break;
-        }
+        return salarie;
     }
 }

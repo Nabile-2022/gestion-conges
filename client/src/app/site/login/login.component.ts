@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit
   {
     this.form = formBuilder.group(
       {
-        role: [Role.Employee]
+        role: [Role.Salarie]
       }
     );
   }
