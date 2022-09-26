@@ -15,8 +15,8 @@ export class NavMenuComponent implements OnInit
     [
       { path: '', name: 'Accueil' },
       { path: 'gestion-absences', name: 'Gestion des absences' },
-      { path: 'jours-feries', name: 'Jours fériés' },
-      { path: 'validation-absences', name: 'Validation demandes', roles: [Role.Manager] }
+      { path: 'validation-absences', name: 'Validation demandes', roles: [Role.Manager] },
+      { path: 'jours-feries', name: 'Jours fériés' }
     ];
 
   constructor(appComponent: AppComponent, private userService: UserService)
