@@ -40,8 +40,8 @@ export class DemandeAbsenceComponent implements OnInit
           this.absence =
           {
             id: 0,
-            dateDebut: new Date(),
-            dateFin: new Date(),
+            dateDebut: this.addDaysToDate(new Date(), 1),
+            dateFin: this.addDaysToDate(new Date(), 2),
             motif: '',
             type: TypeAbsence.CongePaye,
             statut: StatutAbsence.Initiale
@@ -61,8 +61,8 @@ export class DemandeAbsenceComponent implements OnInit
   {
     this.form = this.formBuilder.group(
       {
-        dateDebut: [this.dateToFormInputValue(this.absence.dateDebut), { validators: [FormValidators.pastDate(this.absence.dateDebut)] }],
-        dateFin: [this.dateToFormInputValue(this.absence.dateFin), { validators: [FormValidators.pastDate(this.absence.dateFin)] }],
+        dateDebut: [this.dateToFormInputValue(this.absence.dateDebut), { validators: [FormValidators.pastDate(new Date())] }],
+        dateFin: [this.dateToFormInputValue(this.absence.dateFin), { validators: [FormValidators.pastDate(new Date())] }],
         type: this.absence.type,
         motif: [this.absence.motif, { validators: [FormValidators.nonEmptyText(this.absence)] }]
       }
@@ -75,8 +75,15 @@ export class DemandeAbsenceComponent implements OnInit
 
     const datesValid = this.absence.dateFin > this.absence.dateDebut;
 
-    if (this.form.valid && datesValid)
+    if (!datesValid)
     {
+      this.error = "La date de fin doit suivre la date de début.";
+      return;
+    }
+
+    if (this.form.valid)
+    {
+      this.error = undefined;
       this.submitAction().subscribe(
         {
           next: a => this.router.navigate(['..'], { relativeTo: this.route }),
@@ -95,4 +102,11 @@ export class DemandeAbsenceComponent implements OnInit
    * Converts a date to the format that the HTML date input form control expects ('YYYY-MM-dd').
    */
   dateToFormInputValue(date: Date): string { return date.toISOString().split('T')[0]; }
+
+  addDaysToDate(date: Date, days: number): Date
+  {
+    let newDate = new Date(date.valueOf());
+    newDate.setDate(newDate.getDate() + days);
+    return newDate;
+  }
 }
