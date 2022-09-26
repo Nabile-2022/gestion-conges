@@ -38,10 +38,10 @@ export class ValidationAbsenceComponent implements OnInit
       {
         next: a =>
         {
-          // TODO: Update table.
+          this.absences.splice(this.absences.indexOf(absence), 1);
           this.error = undefined;
         },
-        error: e => this.error = e
+        error: e => this.error = e.error.message
       }
     );
   }
@@ -52,10 +52,10 @@ export class ValidationAbsenceComponent implements OnInit
       {
         next: () =>
         {
-          // TODO: Update table.
+          this.absences.splice(this.absences.indexOf(absence), 1);
           this.error = undefined;
         },
-        error: e => this.error = e
+        error: e => this.error = e.error.message
       });
   }
 
