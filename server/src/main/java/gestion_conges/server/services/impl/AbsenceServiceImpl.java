@@ -232,7 +232,7 @@ public class AbsenceServiceImpl implements AbsenceService
         return absence;
     }
 
-    @Scheduled(fixedDelay = 1000) // TODO: Move elsewhere.
+    @Scheduled(fixedDelay = 5000) // TODO: Move elsewhere.
     public void processAbsences()
     {
         var closedDays = jourFerieRepository.findAll();

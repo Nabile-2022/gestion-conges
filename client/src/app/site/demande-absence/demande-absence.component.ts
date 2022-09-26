@@ -8,6 +8,7 @@ import { AbsenceService } from 'src/app/services/absence.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormValidators } from '../shared/form-validators';
 import { Observable } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-demande-absence',
@@ -22,6 +23,7 @@ export class DemandeAbsenceComponent implements OnInit
   absence!: Absence;
   submitAction!: () => Observable<Absence>;
   title!: string;
+  error?: string;
 
   typeAbsences = Object.values(TypeAbsence).filter(k => isNaN(Number(k)));
   typeAbsenceLabels = typeAbsenceLabels;
@@ -75,7 +77,12 @@ export class DemandeAbsenceComponent implements OnInit
 
     if (this.form.valid && datesValid)
     {
-      this.submitAction().subscribe(a => this.router.navigate(['..'], { relativeTo: this.route }));
+      this.submitAction().subscribe(
+        {
+          next: a => this.router.navigate(['..'], { relativeTo: this.route }),
+          error: (e: HttpErrorResponse) => this.error = e.error.message // If we were to stay on the page, we'd null this error field in the 'next' lambda.
+        }
+      );
     }
   }
 

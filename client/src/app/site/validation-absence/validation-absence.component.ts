@@ -17,6 +17,7 @@ export class ValidationAbsenceComponent implements OnInit
 {
   absences!: any[];
   typeAbsenceLabels = typeAbsenceLabels;
+  error?: string;
 
   constructor(private managerService: ManagerService, private absenceService: AbsenceService) { }
 
@@ -33,18 +34,29 @@ export class ValidationAbsenceComponent implements OnInit
 
   confirm(absence: Absence)
   {
-    this.absenceService.validate(absence).subscribe(a =>
-    {
-      // TODO: Update table.
-    });
+    this.absenceService.validate(absence).subscribe(
+      {
+        next: a =>
+        {
+          // TODO: Update table.
+          this.error = undefined;
+        },
+        error: e => this.error = e
+      }
+    );
   }
 
   reject(absence: Absence)
   {
-    this.absenceService.reject(absence).subscribe(() =>
-    {
-      // TODO: Update table.
-    });
+    this.absenceService.reject(absence).subscribe(
+      {
+        next: () =>
+        {
+          // TODO: Update table.
+          this.error = undefined;
+        },
+        error: e => this.error = e
+      });
   }
 
   dateFromString(date: string): Date { return new Date(date); }
