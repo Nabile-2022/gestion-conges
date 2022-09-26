@@ -179,7 +179,8 @@ public class AbsenceServiceImpl implements AbsenceService
     {
         var absence = salarie.getAbsences().stream().filter(a -> a.getId() == absenceDTO.getId()).findFirst().orElseThrow(() -> new RuntimeException("L'absence n'existe pas."));
 
-        returnDaysToCounter(absence, salarie.getCompteurAbsences());
+        if (absence.getStatut().getLibelle() != StatutAbsenceEnum.Rejetee)
+            returnDaysToCounter(absence, salarie.getCompteurAbsences());
 
         absence
             .setDateDebut(absenceDTO.getDateDebut())
